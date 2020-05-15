@@ -3,6 +3,7 @@ import { useSpring, animated } from 'react-spring';
 
 import Toggle from './Toggle';
 import Nav from './Nav';
+import Checkout from './Checkout';
 
 import logo from './logo.svg';
 import './App.css';
@@ -23,14 +24,13 @@ const App = () => {
     <animated.div className="App" style={fade}>
       <header className="App-header">
         <img src={logo} className="logo" alt="logo" />
-
         <button className="menu-button" onClick={() => setNavOpen(!isNavOpen) }>Menu</button>
-
-        <Nav style={navAnimation} />
-
+        {/* <Nav style={navAnimation} /> */}
       </header>
+
       <main>
         <Toggle />
+        <Checkout isOpen={isNavOpen} />
       </main>
     </animated.div>
   );
