@@ -1,22 +1,20 @@
-import React from 'react';
-import { animated, useSprings } from 'react-spring';
+import React, { useState } from 'react';
+import { animated, useTrail } from 'react-spring';
 
-const opacities = [0.2, 0.4, 0.6, 0.8, 1];
+const items = [0, 1, 2, 3, 4];
 
 const Boxes = () => {
-    const springs = useSprings(opacities.length, opacities.map(opacity => ({
-            from: {
-                opacity: 0,
-            },
-            to: {
-                opacity: opacity
-            }
-        }))
-    );
+    const [isVisible, toggleVisibility] = useState(false);
+
+    const trail = useTrail(items.length, {
+        opacity: isVisible ? 0 : 1,
+        transform: isVisible ? 'scale(0.3)' : 'scale(1)'
+    });
 
     return (
         <div className="boxes-grid">
-            {springs.map(animation => <animated.div className="box" style={animation} /> )}
+            <button onClick={() => toggleVisibility(!isVisible) }>Toggle</button>
+            {trail.map(animation => <animated.div className="box" style={animation} /> )}
         </div>
     )
 }
