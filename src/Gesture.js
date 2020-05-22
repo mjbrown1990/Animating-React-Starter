@@ -4,13 +4,13 @@ import { animated, useSpring } from 'react-spring';
 
 
 const Gesture = () => {
-    const [{ xy }, set] = useSpring(() => ({
-        xy: [0, 0]
+    const [{ x }, set] = useSpring(() => ({
+        x: 0
     }));
 
     const bind = useGesture(({ down, delta }) => {
         //Set animation
-        set({ xy: down ? delta : [0, 0]});
+        set({ x: down ? delta[0] :0 });
     });
 
     return (
@@ -18,7 +18,12 @@ const Gesture = () => {
             className="box"
             {...bind()}
             style={{
-                transform: xy.interpolate((x, y) => `translate3d(${x}px, ${y}px, 0)`)
+                transform: x.interpolate((x) => `translate3d(${x}px, 0, 0)`),
+                opacity: x.interpolate({
+                    map: Math.abs,
+                    range: [-0, 400],
+                    output: [1, 0]
+                })
             }}
         />
     )
